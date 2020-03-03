@@ -2,6 +2,8 @@ from __future__ import absolute_import, division, print_function
 
 from keras.models import Sequential
 from keras.layers import Dense
+from keras.layers import Dense, Dropout, Flatten
+from keras.layers import Conv2D, MaxPooling2D
 # import tensorflow as tf currently no support for tensorflow manually install(make sure pc  supports tensorlfow)
 import pandas as pd 
 import os
@@ -70,13 +72,18 @@ class MODEL():
     
         return accuracy
 
-    def kr_train_DNN_Seq_03(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
+    def kr_train_CDNN_Seq_03(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
         # create model
+       
         model = Sequential()
-        model.add(Dense(10, input_dim=x_dim, init='uniform', activation='relu'))
-        model.add(Dense(20, init='uniform', activation='relu'))
-        model.add(Dense(20, init='uniform', activation='sigmoid'))
-        model.add(Dense(1, init='uniform', activation='sigmoid'))                                                                                                                                                                                                                       
+        model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=4))
+        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(1, activation='softmax'))                                                                                                                                                                                                            
         # Compile model
         model.compile(loss='mean_squared_logarithmic_error', optimizer='adam',
         metrics=['accuracy'])
