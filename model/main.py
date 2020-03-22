@@ -27,13 +27,17 @@ class MODEL():
         metrics = []
         return metrics
 
-    def kr_train_DNN_Seq_01(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
+    def kr_train_CDNN_Seq_01(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
         # create model
         model = Sequential()
-        model.add(Dense(10, input_dim=x_dim, init='uniform', activation='relu'))
-        model.add(Dense(60, init='uniform', activation='relu'))
-        model.add(Dense(30, init='uniform', activation='sigmoid'))
-        model.add(Dense(1, init='uniform', activation='sigmoid'))                                                                                                                                                                                                                       
+        model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(334, 166, 1)))
+        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(1, activation='softmax'))                                                                                                                                                                                                                    
         # Compile model
         model.compile(loss='mean_squared_error', optimizer='adam',
         metrics=['accuracy'])
@@ -50,13 +54,17 @@ class MODEL():
         return accuracy
 
     
-    def kr_train_DNN_Seq_02(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
+    def kr_train_CDNN_Seq_02(self,x_dim ,features_train ,features_test, labels_train , labels_test, batch_size):
         # create model
         model = Sequential()
-        model.add(Dense(9, input_dim=x_dim, init='uniform', activation='relu'))
-        model.add(Dense(36, init='uniform', activation='relu'))
-        model.add(Dense(36, init='uniform', activation='sigmoid'))
-        model.add(Dense(1, init='uniform', activation='sigmoid'))                                                                                                                                                                                                                       
+        model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(334, 166, 1)))
+        model.add(Conv2D(64, (3, 3), activation='relu'))
+        model.add(MaxPooling2D(pool_size=(2, 2)))
+        model.add(Dropout(0.25))
+        model.add(Flatten())
+        model.add(Dense(128, activation='relu'))
+        model.add(Dropout(0.5))
+        model.add(Dense(1, activation='softmax'))                                                                                                                                                                                                                        
         # Compile model
         model.compile(loss='mean_squared_error', optimizer='adam',
         metrics=['accuracy'])
@@ -76,7 +84,7 @@ class MODEL():
         # create model
        
         model = Sequential()
-        model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=4))
+        model.add(Conv2D(32, kernel_size=(3, 3), activation='relu', input_shape=(334, 166, 1)))
         model.add(Conv2D(64, (3, 3), activation='relu'))
         model.add(MaxPooling2D(pool_size=(2, 2)))
         model.add(Dropout(0.25))
