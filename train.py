@@ -1,5 +1,5 @@
-import model as dt 
-import dataset as gm   
+import model.main as gm
+import dataset.main as dt
 from keras.models import model_from_json, model_from_yaml
 
 
@@ -8,7 +8,7 @@ os.getcwd()
 os.listdir(os.getcwd())
 
 def main():
-    create_dataset = dt.CREATE_DATASET()
+    create_dataset = dt.DATASET()
     data = create_dataset.__read_csv__('input/training.csv')
     input_x, features_train, features_test, label_train, label_test = create_dataset.__obtain_data__csv__el__lbencode__('input/training.csv', 15, 1)
     
