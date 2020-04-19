@@ -6,7 +6,7 @@ from keras.utils import plot_model
 
 def main():
     model = Sequential()
-    model.add(Dense(1, input_dim=x_dim, init='uniform', activation='relu'))
+    model.add(Dense(1, input_dim=1, init='uniform', activation='relu'))
     model.add(Dense(4, init='uniform', activation='relu'))
     model.add(Dense(8, init='uniform', activation='sigmoid'))
     model.add(Dense(5, init='uniform', activation='sigmoid'))                                                                                                                                                                                                                       
